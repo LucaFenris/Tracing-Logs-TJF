@@ -11,7 +11,7 @@
 	</parent>
 
 	<groupId>br.com.tjf</groupId>
-	<artifactId>tjf-messaging</artifactId>
+	<artifactId>tjf-messaging-subcriber</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<name>TJF Messaging</name>
 	<description>Exemplo de uso do TJF Messaging</description>
