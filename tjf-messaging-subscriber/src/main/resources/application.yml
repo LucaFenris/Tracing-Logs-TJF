@@ -1,0 +1,48 @@
+spring:
+  cloud:
+    stream:
+      defaultBinder: rabbit1 #Nome do binder
+      bindings:
+        #Filas
+        messaging-subscriber-input:
+         destination: tjf-messaging-input-subscriber
+         group: requests
+        messaging-subscriber-output:
+          destination: tjf-messaging-input-subscriber
+        #Filas de Erro  
+        tjf-messaging-error-input:
+          destination: tjf-messaging-errors
+          group: errors
+        tjf-messaging-error-output:
+          destination: tjf-messaging-errors
+          group: errors
+          producer:
+            requiredGroups: errors
+      #Binder de conexão      
+      binders:
+        rabbit1:
+          type: rabbit
+          environment:
+            spring:
+              rabbit:
+                host: localhost #host do rabbitMQ
+    
+#Habilitar o Endpoint HTTP do serviço de recuperação de mensagens da fila de erro
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health,messaging
+            
+opentracing:
+  jaeger:
+    service-name: TJF Messaging Sample Subscriber - Service
+    enabled: true
+    probabilistic-sampler:
+      sampling-rate: 1.0
+    udp-sender:
+      host: localhost
+      port: 6831        
+    
+server:
+  port: 8180
